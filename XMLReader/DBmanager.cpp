@@ -364,6 +364,16 @@ bool DBmanager::AddCharacterToUser(int race, std::string name, std::string user)
 	return insertResult;
 }
 
+void DBmanager::SelectMap(int mapNumber)
+{
+	std::string playerInput = std::to_string(mapNumber);
+	
+	std::string query = "SELECT * FROM Maps WHERE MapId='"+playerInput+"'";
+	result = stmt->executeQuery(query.c_str());
+	
+	std::cout << "Procediendo a ejecutar la fase: " << result->getString("MapName").c_str() << std::endl;
+	delete(stmt);
+}
 
 DBmanager::~DBmanager()
 {
