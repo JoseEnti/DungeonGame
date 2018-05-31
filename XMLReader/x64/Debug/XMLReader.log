@@ -1,0 +1,16 @@
+﻿  DBmanager.cpp
+d:\xmlbaseddungeongame\deps64\mysql\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'sql::SQLString'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\xstring(4347): note: vea la declaración de 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+d:\xmlbaseddungeongame\deps64\mysql\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'sql::SQLException'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\xstring(4347): note: vea la declaración de 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+d:\xmlbaseddungeongame\deps64\mysql\include\cppconn\exception.h(145): warning C4251: 'sql::SQLUnsupportedOptionException::option': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' necesita tener una interfaz DLL para que la utilicen los clientes de struct 'sql::SQLUnsupportedOptionException'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.14.26428\include\xstring(4347): note: vea la declaración de 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+  Unknown compiler version - please run the configure tests and report the results
+d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(175): warning C4251: 'sql::mysql::MySQL_Connection::proxy': class 'boost::shared_ptr<sql::mysql::NativeAPI::NativeConnectionWrapper>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'sql::mysql::MySQL_Connection'
+  d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(175): note: vea la declaración de 'boost::shared_ptr<sql::mysql::NativeAPI::NativeConnectionWrapper>'
+d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(179): warning C4251: 'sql::mysql::MySQL_Connection::service': class 'boost::scoped_ptr<sql::mysql::MySQL_Statement>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'sql::mysql::MySQL_Connection'
+  d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(179): note: vea la declaración de 'boost::scoped_ptr<sql::mysql::MySQL_Statement>'
+d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern': class 'boost::scoped_ptr<sql::mysql::MySQL_ConnectionData>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'sql::mysql::MySQL_Connection'
+  d:\xmlbaseddungeongame\deps64\mysql\include\mysql_connection.h(181): note: vea la declaración de 'boost::scoped_ptr<sql::mysql::MySQL_ConnectionData>'
+d:\xmlbaseddungeongame\xmlreader\dbmanager.cpp(295): warning C4101: 'e': variable local sin referencia
+  XMLReader.vcxproj -> D:\XMLBasedDungeonGame\x64\Debug\XMLReader.exe

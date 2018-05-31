@@ -1,0 +1,21 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="room">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="square" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="type" use="required"/>
+                <xs:attribute type="xs:byte" name="x" use="required"/>
+                <xs:attribute type="xs:byte" name="y" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:byte" name="squareAmountX"/>
+      <xs:attribute type="xs:byte" name="squareAmountY"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

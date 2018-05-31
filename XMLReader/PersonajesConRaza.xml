@@ -1,0 +1,27 @@
+<jugadores>
+	<personaje
+		nombre="Pepocho"
+		nivel="20"
+		raza="Orco"
+	/>
+	<personaje
+		nombre="Pinocho"
+		nivel="16"
+		raza="Orco"
+	/>
+	<personaje
+		nombre="Isabela"
+		nivel="45"
+		raza="Elfo"
+	/>
+	<personaje
+		nombre="Elbert"
+		nivel="23"
+		raza="Elfo"
+	/>
+	<personaje
+		nombre="Alkahad"
+		nivel="5"
+		raza="Nordico"
+	/>
+</jugadores>
