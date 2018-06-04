@@ -117,11 +117,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 				}
 				squares++;
 				
-				/*std::cout << "A new field was filled with " << type
-					<< " in X = " << posX
-					<< ", Y = " << posY
-					<< std::endl;
-					*/
+				
 			}
 		}
 	}
@@ -130,7 +126,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 	numberOfTreasures = treasures;
 	numberOfEnemies = enemies;
 	numberOfPlayers = players;
-	//std::cout << "\nDebug Position Enemy =  X:" << allEnemies[2].position.X << " Y: " << allEnemies[2].position.Y << "\n";
+	
 }
 
 int WorldDungeonFixed::GetWorldX() {
