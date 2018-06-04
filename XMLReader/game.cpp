@@ -100,11 +100,18 @@ void LoggedMenu(bool &exit) {
 void ChooseCharacter() {
 	int racesFound = database.ShowUserCharacters(user);
 
-	std::cout << "Elije el id del personaje que quieres seleccionar";
+	std::cout << "Elije el id del personaje que quieres seleccionar" << std::endl;
 	std::cin >> optionChoosen;
 	// Aun no funciona bien
 	playableCharacterChoosen = database.SelectUserCharacter(user, optionChoosen);
+	
+	int mapInput = NULL;
+	
+	std::cout << "Introduce el id del mapa al que quieres jugar" << std::endl;
+	std::cin >> mapInput;
 
+	database.SelectMap(mapInput);
+	
 	if (playableCharacterChoosen) {
 		std::cout << "Iniciando el juego..." << std::endl;
 		game(optionChoosen);
@@ -138,11 +145,9 @@ void CreateNewCharacter() {
 
 
 void game(int characterChoosen) {
-	std::string XML_FILE = "RetoDungeon.xml";
 
 	WorldDungeonFixed world;
-	world.LoadMap(XML_FILE);
-
+	
 	sf::RenderWindow window(sf::VideoMode(world.GetWorldX() * 32, world.GetWorldY() * 32), "BloodBorne 2");
 
 	int treasureValue = 0;
