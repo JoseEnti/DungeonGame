@@ -45,7 +45,7 @@ bool DBmanager::Login(std::string user, std::string pass) {
 	bool loginResult = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT * FROM Users WHERE user = '" + user + "' AND password = '" + pass + "'";
+			query = "SELECT * FROM users WHERE user = '" + user + "' AND password = '" + pass + "'";
 			result = stmt->executeQuery(query.c_str());
 
 			if (result->next()) {
@@ -74,13 +74,13 @@ bool DBmanager::Register(std::string user, std::string pass, std::string passCon
 	if (pass == passConf) {
 		if (Connect(HOST, USER, PASSWORD)) {
 			try {
-				query = "SELECT * FROM Users WHERE mail = '" + user + "'";
+				query = "SELECT * FROM users WHERE user = '" + user + "'";
 				result = stmt->executeQuery(query.c_str());
 				if (result->next()) {
-					std::cout << "Este correo ya esta en uso, introduce uno diferente por favor" << std::endl;
+					std::cout << "Este usuario ya esta en uso, introduce uno diferente por favor" << std::endl;
 				}
 				else {
-					prep_stmt = con->prepareStatement("INSERT INTO Users(`user`, `password`, `mail`) VALUES(?, ?, ?)");
+					prep_stmt = con->prepareStatement("INSERT INTO users(`user`, `password`) VALUES(?, ?)");
 					prep_stmt->setString(1, user.c_str());
 					prep_stmt->setString(2, pass.c_str());
 					prep_stmt->execute();
@@ -111,13 +111,13 @@ void DBmanager::InsertCoin(int id_character, int coin)
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
 			int actualGold = 0;
-			query = "SELECT gold FROM `Characters` WHERE id= " + std::to_string(id_character);
+			query = "SELECT gold FROM `characters` WHERE id= " + std::to_string(id_character);
 			result = stmt->executeQuery(query.c_str());
 
 			if (result->next()) {
 				actualGold = result->getInt("gold");
 
-				prep_stmt = con->prepareStatement("UPDATE Characters SET `gold` = ? WHERE `id` = ?");
+				prep_stmt = con->prepareStatement("UPDATE characters SET `gold` = ? WHERE `id` = ?");
 				prep_stmt->setInt(1, coin + actualGold);
 				prep_stmt->setInt(2, id_character);
 				prep_stmt->execute();
@@ -134,13 +134,13 @@ bool DBmanager::ShowCharacterInventory(int id_character) {
 	bool inventoryFound = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT Inventories.id, Inventories.name, Inventories.attack, Inventories.defense, Inventories.value ";
-			query += "FROM Inventories ";
-			query += "INNER JOIN Characters_inventories ";
-			query += "ON Inventories.id = Characters_inventories.inventories_id_inventory ";
-			query += "INNER JOIN Characters ";
-			query += "ON Characters_inventories.characters_id_character = Characters.id";
-			query += "WHERE Characters.id= " + std::to_string(id_character);
+			query = "SELECT inventories.id, inventories.name, inventories.attack, inventories.defense, inventories.value ";
+			query += "FROM inventories ";
+			query += "INNER JOIN characters_inventories ";
+			query += "ON inventories.id = characters_inventories.inventories_id_inventory ";
+			query += "INNER JOIN characters ";
+			query += "ON characters_inventories.characters_id_character = characters.id";
+			query += "WHERE characters.id= " + std::to_string(id_character);
 			result = stmt->executeQuery(query.c_str());
 
 			int sellValue = 0;
@@ -171,15 +171,15 @@ bool DBmanager::ShowCharacterStats(int id_character, std::string user) {
 	bool searchResult = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT `id`, Characters.name AS 'Character_name' , `level`, `XP`, `gold`, Races.name AS 'Race_name' ";
-			query += "FROM `Characters` ";
-			query += "INNER JOIN Races ";
-			query += "ON Characters.races_id_race = Races.id ";
-			query += "INNER JOIN Characters_users ";
-			query += "ON Characters.id = Characters_users.characters_id_character ";
-			query += "INNER JOIN Users ";
-			query += "ON Characters_users.users_id_user = Users.id";
-			query += "WHERE Users.user = '" + user + "' AND `id` = " + std::to_string(id_character);
+			query = "SELECT `id`, characters.name AS 'Character_name' , `level`, `XP`, `gold`, races.name AS 'Race_name' ";
+			query += "FROM `characters` ";
+			query += "INNER JOIN races ";
+			query += "ON characters.races_id_race = races.id ";
+			query += "INNER JOIN characters_users ";
+			query += "ON characters.id = characters_users.characters_id_character ";
+			query += "INNER JOIN users ";
+			query += "ON characters_users.users_id_user = users.id";
+			query += "WHERE users.user = '" + user + "' AND `id` = " + std::to_string(id_character);
 			result = stmt->executeQuery(query.c_str());
 
 			if (result->next()) {
@@ -203,7 +203,7 @@ bool DBmanager::ShowRaces() {
 	bool showResult = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT * FROM `Races`";
+			query = "SELECT * FROM `races`";
 			result = stmt->executeQuery(query.c_str());
 
 			std::cout << "List of existing races:\n";
@@ -231,15 +231,15 @@ int DBmanager::ShowUserCharacters(std::string user) {
 	int charactersFound = -1;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT `id_character`, Characters.name AS 'Character_name' , `level`, `XP`, `gold`, Races.name AS 'Race_name' ";
-			query += "FROM `Characters` ";
-			query += "INNER JOIN Races ";
-			query += "ON Characters.races_id_race = Races.id";
-			query += "INNER JOIN Characters_users ";
-			query += "ON Characters.id= Characters_users.characters_id_character ";
-			query += "INNER JOIN Users ";
-			query += "ON Characters_users.users_id_user = Users.id";
-			query += "WHERE Users.user = '" + user + "'";
+			query = "SELECT characters.id, characters.name AS 'Character_name' , `level`, `XP`, `gold`, races.name AS 'Race_name' ";
+			query += "FROM `characters` ";
+			query += "INNER JOIN races ";
+			query += "ON characters.races_id_race = races.id ";
+			query += "INNER JOIN characters_users ";
+			query += "ON characters.id= characters_users.characters_id_character ";
+			query += "INNER JOIN users ";
+			query += "ON characters_users.users_id_user = users.id ";
+			query += "WHERE users.user = '" + user + "'";
 			result = stmt->executeQuery(query.c_str());
 
 			charactersFound = 0;
@@ -265,19 +265,19 @@ int DBmanager::ShowUserCharacters(std::string user) {
 	return charactersFound;
 }
 
-bool DBmanager::SelectUserCharacter(std::string mail, int characterID) {
+bool DBmanager::SelectUserCharacter(std::string user, int characterID) {
 	int searchResult = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT `id_character`, Characters.name AS 'Character_name' , `level`, `XP`, `gold`, Races.name AS 'Race_name' ";
-			query += "FROM `Characters` ";
-			query += "INNER JOIN Races ";
-			query += "ON Characters.races_id_race = Races.id";
-			query += "INNER JOIN Characters_users ";
-			query += "ON Characters.id= Characters_users.characters_id_character ";
-			query += "INNER JOIN Users ";
-			query += "ON Characters_users.users_id_user = Users.id";
-			query += "WHERE Users.mail = '" + mail + "' AND `id` = " + std::to_string(characterID);
+			query = "SELECT characters.id, characters.name AS 'Character_name' , `level`, `XP`, `gold`, races.name AS 'Race_name' ";
+			query += "FROM `characters` ";
+			query += "INNER JOIN races ";
+			query += "ON characters.races_id_race = races.id ";
+			query += "INNER JOIN characters_users ";
+			query += "ON characters.id= characters_users.characters_id_character ";
+			query += "INNER JOIN users ";
+			query += "ON characters_users.users_id_user = users.id ";
+			query += "WHERE users.user = '" + user + "' AND characters.id = '" + std::to_string(characterID)+"'";
 			result = stmt->executeQuery(query.c_str());
 
 			
@@ -304,40 +304,40 @@ bool DBmanager::AddCharacterToUser(int race, std::string name, std::string user)
 	bool insertResult = false;
 	if (Connect(HOST, USER, PASSWORD)) {
 		try {
-			query = "SELECT * FROM `Races` WHERE id = " + std::to_string(race);
+			query = "SELECT * FROM `races` WHERE id = '" + std::to_string(race) +"'";
 			result = stmt->executeQuery(query.c_str());
 			if (result->next()) {
 				int initialAttack = result->getInt("base_attack");
 				int initialDefense = result->getInt("base_defense");
 
-				query = "SELECT `id_user` FROM `Users` WHERE `user` = '" + user + "'";
+				query = "SELECT `id` FROM `users` WHERE `user` = '" + user + "'";
 				result = stmt->executeQuery(query.c_str());
 
 				if (result->next()) {
 					int idUser = result->getInt("id");
 
-					prep_stmt = con->prepareStatement("INSERT INTO Characters(`name`, `level`, `races_id_race`) VALUES(?, ?, ?)");
+					prep_stmt = con->prepareStatement("INSERT INTO characters(`name`, `level`, `races_id_race`) VALUES(?, ?, ?)");
 					prep_stmt->setString(1, name.c_str());
 					prep_stmt->setInt(2, 1);
 					prep_stmt->setInt(3, race);
 					prep_stmt->execute();
 					delete (prep_stmt);
 
-					query = "SELECT `id_character`, `name` FROM Characters WHERE `name` = '" + name + "'";
+					query = "SELECT `id`, `name` FROM characters WHERE `name` = '" + name + "'";
 					result = stmt->executeQuery(query.c_str());
 					int idCharacter = 0;
 					if (result->next()) {
 						idCharacter = result->getInt("id");
 					}
 
-					prep_stmt = con->prepareStatement("INSERT INTO Stats(`characters_id_character`, `attack`, `defense`) VALUES(?, ?, ?)");
+					prep_stmt = con->prepareStatement("INSERT INTO stats(`characters_id_character`, `attack`, `defense`) VALUES(?, ?, ?)");
 					prep_stmt->setInt(1, idCharacter);
 					prep_stmt->setInt(2, initialAttack);
 					prep_stmt->setInt(3, initialDefense);
 					prep_stmt->execute();
 					delete (prep_stmt);
 
-					prep_stmt = con->prepareStatement("INSERT INTO Characters_users(`users_id_user`, `characters_id_character`) VALUES (?, ?)");
+					prep_stmt = con->prepareStatement("INSERT INTO characters_users(`users_id_user`, `characters_id_character`) VALUES (?, ?)");
 					prep_stmt->setInt(1, idUser);
 					prep_stmt->setInt(2, idCharacter);
 					prep_stmt->execute();
@@ -370,8 +370,11 @@ void DBmanager::SelectMap(int mapNumber)
 	
 	std::string query = "SELECT * FROM Maps WHERE MapId='"+playerInput+"'";
 	result = stmt->executeQuery(query.c_str());
+	if (result->next()) {
+		std::string xml = result->getString("MapContent");
+
+	}
 	
-	std::cout << "Procediendo a ejecutar la fase: " << result->getString("MapName").c_str() << std::endl;
 	delete(stmt);
 }
 

@@ -38,7 +38,7 @@ int main() {
 }
 
 void NotLoggedMenu(bool& exit) {
-	std::cout << "1 - Inicio de sesion" << "2 - Registrar usuario" << "0 - Cerrar el programa" << std::endl;
+	std::cout << "1 - Inicio de sesion " << "2 - Registrar usuario " << "0 - Cerrar el programa" << std::endl;
 	std::cin >> optionChoosen;
 
 	switch (optionChoosen) {

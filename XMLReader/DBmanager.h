@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <time.h>
-
 #include <mysql_connection.h>
 #include <cppconn\driver.h>
 #include <cppconn\exception.h>
@@ -10,7 +9,7 @@
 #include <cppconn\prepared_statement.h>
 #include <cppconn\resultset.h>
 
-#define HOST "tcp://192.168.122.254:3306"
+#define HOST "192.168.122.2:3306"
 #define USER "root"
 #define PASSWORD "enti" // Poner una contraseña aqui es de ****
 
