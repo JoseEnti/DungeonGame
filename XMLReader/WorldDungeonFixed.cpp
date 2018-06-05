@@ -1,7 +1,7 @@
 #include "WorldDungeonFixed.h"
 #include "pugixml.hpp"
 #include <iostream>
-
+#include "DBmanager.h"
 
 WorldDungeonFixed::WorldDungeonFixed()
 {
@@ -426,42 +426,89 @@ void WorldDungeonFixed::saveGame() {
 	int itemsCount = 0;
 	int treasuresCount = 0;
 
+	std::string mapName;
+	std::cout << "Introduce el nombre del mapa que quieres guardar." << std::endl;
+	std::cin >> mapName;
+	
+	DBmanager db;
+	
+	std::string query = "<room squareAmountX='";
+	sql::PreparedStatement *prep_stmt;
+	prep_stmt = con->prepareStatement("INSERT INTO maps(`MapName`, `MapContent`) VALUES(?, ?)");
+	prep_stmt->setString(1, mapName);
+
 	pugi::xml_document doc;
 	pugi::xml_node nodeRoom = doc.append_child("room");
-	nodeRoom.append_attribute("squareAmountX") = GetWorldX();
-	nodeRoom.append_attribute("squareAmountY") = GetWorldY();
+	query += GetWorldX();
+		
+	query += "' squareAmountY='";
+	query += GetWorldY();
+	query += "'>";
 
-	for (int i = 0; i < numberOfSquares; i++) {
+	for (int i = 0; i < numberOfSquares; i++) 
+	{
 		pugi::xml_node nodeSquare = nodeRoom.append_child("square");
 
-		if (playersCount < numberOfPlayers) {
-			nodeSquare.append_attribute("type") = allPlayers[playersCount].type.c_str();
-			nodeSquare.append_attribute("x") = allPlayers[playersCount].position.X;
-			nodeSquare.append_attribute("y") = allPlayers[playersCount].position.Y;
+		if (playersCount < numberOfPlayers) 
+		{
+			query += "<square type='";
+			query += allPlayers[playersCount].type.c_str();
+			
+			query += "' x='";
+			query += allPlayers[playersCount].position.X;
+
+			query += "' y='";
+			query += allPlayers[playersCount].position.Y;
+
+			query += "' />";
 			playersCount++;
 		}
-		else if (obstaclesCount < numberOfObstacles) {
-			nodeSquare.append_attribute("type") = allObstacles[obstaclesCount].type.c_str();
-			nodeSquare.append_attribute("x") = allObstacles[obstaclesCount].position.X;
-			nodeSquare.append_attribute("y") = allObstacles[obstaclesCount].position.Y;
+		else if (obstaclesCount < numberOfObstacles) 
+		{
+			query += "<square type='";
+			query += allObstacles[obstaclesCount].type.c_str();
+
+			query += "' x='";
+			query += allObstacles[obstaclesCount].position.X;
+
+			query += "' y='";
+			query += allObstacles[obstaclesCount].position.Y;
+
+			query += "' />";
 			obstaclesCount++;
 		}
-		else if (enemiesCount < numberOfEnemies) {
-			nodeSquare.append_attribute("type") = allEnemies[enemiesCount].type.c_str();
-			nodeSquare.append_attribute("x") = allEnemies[enemiesCount].position.X;
-			nodeSquare.append_attribute("y") = allEnemies[enemiesCount].position.Y;
+		else if (enemiesCount < numberOfEnemies) 
+		{
+			query += "<square type='";
+			query += allEnemies[enemiesCount].type.c_str();
+
+			query += "' x='";
+			query += allEnemies[enemiesCount].position.X;
+
+			query += "' y='";
+			query += allEnemies[enemiesCount].position.Y;
+
+			query += "' />";
 			enemiesCount++;
 		}
-		else if (treasuresCount < numberOfTreasures) {
-			// nodeSquare.append_attribute("pickedUp").value = allTreasures[treasuresCount].pickedUp;
-			// nodeSquare.append_attribute("value").value = allTreasures[treasuresCount].value;
-			nodeSquare.append_attribute("type") = allTreasures[treasuresCount].type.c_str();
-			nodeSquare.append_attribute("x") = allTreasures[treasuresCount].position.X;
-			nodeSquare.append_attribute("y") = allTreasures[treasuresCount].position.Y;
+		else if (treasuresCount < numberOfTreasures) 
+		{
+			query += "<square type='";
+			query += allTreasures[treasuresCount].type.c_str();
+
+			query += "' x='";
+			query += allTreasures[treasuresCount].position.X;
+
+			query += "' y='";
+			query += allTreasures[treasuresCount].position.Y;
+
+			query += "' />";
 			treasuresCount++;
 		}
 	}
-	doc.save_file("RetoDungeon.xml");
+	prep_stmt->setString(2, query);
+	prep_stmt->execute();
+	delete (prep_stmt);
 }
 
 WorldDungeonFixed::~WorldDungeonFixed()
