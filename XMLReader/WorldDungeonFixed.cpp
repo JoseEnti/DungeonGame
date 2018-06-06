@@ -439,10 +439,10 @@ void WorldDungeonFixed::saveGame() {
 
 	pugi::xml_document doc;
 	pugi::xml_node nodeRoom = doc.append_child("room");
-	query += GetWorldX();
+	query += std::to_string(GetWorldX());
 		
 	query += "' squareAmountY='";
-	query += GetWorldY();
+	query += std::to_string(GetWorldY());
 	query += "'>";
 
 	for (int i = 0; i < numberOfSquares; i++) 
@@ -505,6 +505,7 @@ void WorldDungeonFixed::saveGame() {
 			query += "' />";
 			treasuresCount++;
 		}
+		query += "</room>";
 	}
 	prep_stmt->setString(2, query);
 	prep_stmt->execute();
