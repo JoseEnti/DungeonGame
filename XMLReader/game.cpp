@@ -1,5 +1,6 @@
 #include "WorldDungeonFixed.h"
 #include <iostream>
+#include <fstream>
 #include "DBmanager.h"
 
 int actualPlayerY = NULL;
@@ -110,8 +111,12 @@ void ChooseCharacter() {
 	std::cout << "Introduce el id del mapa al que quieres jugar" << std::endl;
 	std::cin >> mapInput;
 
-	database.SelectMap(mapInput);
+	std::string xml = database.SelectMap(mapInput);
 	
+	std::ofstream xmlFile;
+	xmlFile.open("dungeon.xml");
+	xmlFile << xml;
+	xmlFile.close();
 	if (playableCharacterChoosen) {
 		std::cout << "Iniciando el juego..." << std::endl;
 		game(optionChoosen);
@@ -147,7 +152,7 @@ void CreateNewCharacter() {
 void game(int characterChoosen) {
 
 	WorldDungeonFixed world;
-	
+	world.LoadMap("RetoDungeon.xml");
 	sf::RenderWindow window(sf::VideoMode(world.GetWorldX() * 32, world.GetWorldY() * 32), "BloodBorne 2");
 
 	int treasureValue = 0;
@@ -187,6 +192,10 @@ void game(int characterChoosen) {
 				if (treasureValue > 0) {
 					database.InsertCoin(characterChoosen, treasureValue);
 				}
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+				database.SelectMap(characterChoosen);
+
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
 				database.ShowCharacterInventory(characterChoosen);

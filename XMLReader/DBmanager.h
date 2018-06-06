@@ -28,8 +28,8 @@ public:
 	void InsertCoin(int id_character, int coin);
 	bool ShowCharacterInventory(int id_character);
 	bool ShowCharacterStats(int id_character, std::string mail);
-	void SelectMap(int mapNumber);
-	void SaveMapDb(std::string query, std::string mapName);
+	std::string SelectMap(int mapNumber);
+	void SaveMapDb(std::string query, std::string mapNumber);
 private:
 	bool Connect(char* host, char* user, char* pass);
 
