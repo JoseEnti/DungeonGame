@@ -33,6 +33,10 @@ public:
 	int GetPlayerX();
 	int GetPlayerY();
 
+	int GetDoorX(int doorID);
+	int GetDoorY(int doorID);
+
+
 	void SetPlayerX(int new_positionX);
 	void SetPlayerY(int new_positionY);
 
@@ -49,6 +53,7 @@ private:
 	int numberOfTreasures;
 	int numberOfEnemies;
 	int numberOfPlayers;
+	int numberOfDoors;
 
 	Square *SpawnPosition;
 	Player *allPlayers;
@@ -56,7 +61,9 @@ private:
 	Obstacle *allObstacles;
 	Item *allItems;
 	Treasure *allTreasures;
+	Door *allDoors;
 
 	void playerHasCrashedWithEnemy();
+	void playerInDoor();
 };
 

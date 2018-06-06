@@ -15,6 +15,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 	int obstacles = 0;
 	int items = 0;
 	int treasures = 0;
+	int doors = 0;
 
 	bool dynamicMemoryLoaded = false;
 
@@ -23,6 +24,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 	int obstaclesCount = 0;
 	int itemsCount = 0;
 	int treasuresCount = 0;
+	int doorsCount = 0;
 
 	typedef const pugi::char_t* pugiCharArray;
 
@@ -32,7 +34,8 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 	std::cout << "Resultado carga --> " << result.description() << "\n" << std::endl;
 
 	for (int loadNumber = 0; loadNumber <= 1; loadNumber++) {
-		pugi::xml_node nodeRoom = doc.child("room");
+		pugi::xml_node nodeMap = doc.child("map");
+		pugi::xml_node nodeRoom = nodeMap.child("room");
 		pugiCharArray attrRoomSizeX = nodeRoom.attribute("squareAmountX").value();
 		pugiCharArray attrRoomSizeY = nodeRoom.attribute("squareAmountY").value();
 
@@ -64,7 +67,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 					treasures++;
 				}
 				else if (type == "door") {
-					obstacles++;
+					doors++;
 				}
 				else if (type == "wall") {
 					obstacles++;
@@ -77,6 +80,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 					allEnemies = new Enemy[enemies];
 					allTreasures = new Treasure[treasures];
 					allObstacles = new Obstacle[obstacles];
+					allDoors = new Door[doors];
 					dynamicMemoryLoaded = true;
 				}
 
@@ -104,10 +108,10 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 					treasuresCount++;
 				}
 				else if (type == "door") {
-					allObstacles[obstaclesCount].position.X = stoi(posX);
-					allObstacles[obstaclesCount].position.Y = stoi(posY);
-					allObstacles[obstaclesCount].type = type; // TEMPORAL
-					obstaclesCount++;
+					allDoors[doorsCount].position.X = stoi(posX);
+					allDoors[doorsCount].position.Y = stoi(posY);
+					allDoors[doorsCount].type = type; // TEMPORAL
+					doorsCount++;
 				}
 				else if (type == "wall") {
 					allObstacles[obstaclesCount].position.X = stoi(posX);
@@ -126,7 +130,7 @@ void WorldDungeonFixed::LoadMap(std::string xml) {
 	numberOfTreasures = treasures;
 	numberOfEnemies = enemies;
 	numberOfPlayers = players;
-	
+	numberOfDoors = doors;
 }
 
 int WorldDungeonFixed::GetWorldX() {
@@ -175,6 +179,14 @@ int WorldDungeonFixed::GetEnemyX(int enemyID) {
 
 int WorldDungeonFixed::GetEnemyY(int enemyID) {
 	return allEnemies[enemyID].position.Y;
+}
+
+int WorldDungeonFixed::GetDoorX(int doorID) {
+	return allDoors[doorID].position.X;
+}
+
+int WorldDungeonFixed::GetDoorY(int doorID) {
+	return allDoors[doorID].position.Y;
 }
 
 int WorldDungeonFixed::GetPlayerX() {
@@ -259,6 +271,16 @@ void WorldDungeonFixed::playerHasCrashedWithEnemy() {
 	}
 }
 
+void WorldDungeonFixed::playerInDoor() {
+	for (int i = 0; i < numberOfDoors; i++) {
+		if (GetDoorX(i) == GetPlayerX() && GetDoorY(i) == GetPlayerY()) {
+			allPlayers[0].position.X = SpawnPosition[0].X;
+			allPlayers[0].position.Y = SpawnPosition[0].Y;
+			i = numberOfEnemies;
+		}
+	}
+}
+
 int WorldDungeonFixed::PickUpTreasure() {
 	int treasureValue = 0;
 	for (int i = 0; i < numberOfTreasures; i++) {
@@ -282,7 +304,7 @@ void WorldDungeonFixed::DrawMap(sf::RenderWindow &window) {
 	int enemyPlaced = 0;
 	int obstaclePlaced = 0;
 	int playerPlaced = 0;
-
+	int doorPlaced = 0;
 	//Draw something here
 	sf::Texture textureTerrain;
 	if (!textureTerrain.loadFromFile("Suelo.png"))
@@ -357,7 +379,7 @@ void WorldDungeonFixed::DrawMap(sf::RenderWindow &window) {
 	chestField.setTextureRect(sf::IntRect(0, 0, 32, 32));
 
 	//Draw the dungeon
-	for (int i = 0; i <= 4; i++) {
+	for (int i = 0; i <= 5; i++) {
 		for (int y = 0; y < GetWorldY(); y++) {
 			for (int x = 0; x < GetWorldX(); x++) {
 				if (i == 0) {
@@ -397,15 +419,18 @@ void WorldDungeonFixed::DrawMap(sf::RenderWindow &window) {
 						if (allObstacles[obstaclePlaced].type == "wall") {
 							wallField.setPosition(sf::Vector2f(x * 32, y * 32));
 							window.draw(wallField);
+							obstaclePlaced++;
 						}
-						else if (allObstacles[obstaclePlaced].type == "door") {
-							doorField.setPosition(sf::Vector2f(x * 32, y * 32));
-							window.draw(doorField);
-						}
-						obstaclePlaced++;
 					}
 				}
 				else if (i == 4) {
+					if ((allDoors[doorPlaced].position.X) == x && (allDoors[doorPlaced].position.Y) == y) {
+								doorField.setPosition(sf::Vector2f(x * 32, y * 32));
+								window.draw(doorField);
+								doorPlaced++;
+						}
+					}
+				else if (i == 5) {
 					if ((allPlayers[playerPlaced].position.X) == x && (allPlayers[playerPlaced].position.Y) == y) {
 						playerField.setPosition(sf::Vector2f(x * 32, y * 32));
 						window.draw(playerField);
@@ -425,86 +450,118 @@ void WorldDungeonFixed::saveGame() {
 	int obstaclesCount = 0;
 	int itemsCount = 0;
 	int treasuresCount = 0;
+	int doorCount = 0;
 
-	std::string mapName;
-	std::cout << "Introduce el nombre del mapa que quieres guardar." << std::endl;
-	std::cin >> mapName;
 	
 	DBmanager db;
-	
-	std::string query = "<room squareAmountX='";
-	
-
 	pugi::xml_document doc;
 	pugi::xml_node nodeRoom = doc.append_child("room");
+	for (int j=1; j <=3; j++)
+	{
+	std::string query = "<map><room squareAmountX=\"";
+	
+
+	
+	if (j == 2)
+	{
+		pugi::xml_node nodeRoom = nodeRoom.next_sibling("room");
+	}
+	else if (j == 3)
+	{
+		pugi::xml_node nodeRoom = nodeRoom.next_sibling("room");
+	}
 	query += std::to_string(GetWorldX());
 		
-	query += "' squareAmountY='";
+	query += "\" squareAmountY=\"";
 	query += std::to_string(GetWorldY());
-	query += "'>";
+	query += "\">";
 
-	for (int i = 0; i < numberOfSquares; i++) 
+	for (int i = 0; i < numberOfSquares; i++)
 	{
 		pugi::xml_node nodeSquare = nodeRoom.append_child("square");
 
-		if (playersCount < numberOfPlayers) 
+		if (playersCount < numberOfPlayers)
 		{
-			query += "<square type='";
+			query += "<square type=\"";
 			query += allPlayers[playersCount].type.c_str();
-			
-			query += "' x='";
+
+			query += "\" x=\"";
 			query += allPlayers[playersCount].position.X;
 
-			query += "' y='";
+			query += "\" y=\"";
 			query += allPlayers[playersCount].position.Y;
 
-			query += "' />";
+			query += "\" />";
 			playersCount++;
 		}
-		else if (obstaclesCount < numberOfObstacles) 
+		/*if (obstaclesCount < numberOfObstacles)
 		{
-			query += "<square type='";
+			query += "<square type=\"";
 			query += allObstacles[obstaclesCount].type.c_str();
 
-			query += "' x='";
+			/*query += "\" x=\"";
 			query += allObstacles[obstaclesCount].position.X;
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
+			query += "\" y=\"";
 
-			query += "' y='";
+			query += "\" y=\"";
 			query += allObstacles[obstaclesCount].position.Y;
 
-			query += "' />";
+			query += "\" />";
 			obstaclesCount++;
-		}
-		else if (enemiesCount < numberOfEnemies) 
+		}*/
+		if (doorCount < numberOfDoors)
 		{
-			query += "<square type='";
+			query += "<square type=\"";
+			query += allDoors[doorCount].type.c_str();
+
+			query += "\" x=\"";
+			query += allDoors[doorCount].position.X;
+
+			query += "\" y=\"";
+			query += allDoors[doorCount].position.Y;
+
+			query += "\" />";
+			doorCount++;
+		}
+		if (enemiesCount < numberOfEnemies)
+		{
+			query += "<square type=\"";
 			query += allEnemies[enemiesCount].type.c_str();
 
-			query += "' x='";
+			query += "\" x=\"";
 			query += allEnemies[enemiesCount].position.X;
 
-			query += "' y='";
+			query += "\" y=\"";
 			query += allEnemies[enemiesCount].position.Y;
 
-			query += "' />";
+			query += "\" />";
 			enemiesCount++;
 		}
-		else if (treasuresCount < numberOfTreasures) 
+		if (treasuresCount < numberOfTreasures)
 		{
-			query += "<square type='";
+			query += "<square type=\"";
 			query += allTreasures[treasuresCount].type.c_str();
 
-			query += "' x='";
+			query += "\" x=\"";
 			query += allTreasures[treasuresCount].position.X;
 
-			query += "' y='";
+			query += "\" y=\"";
 			query += allTreasures[treasuresCount].position.Y;
 
-			query += "' />";
+			query += "\" />";
 			treasuresCount++;
 		}
-		query += "</room>";
-		db.SaveMapDb(query, mapName);
+		
+	}
+	query += "</room></map>";
+	db.SaveMapDb(query, std::to_string(j));
 	}
 	
 }

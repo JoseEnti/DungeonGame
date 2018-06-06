@@ -33,3 +33,8 @@ struct Treasure {
 	bool pickedUp;
 	std::string type;
 };
+struct Door {
+	Square position;
+	int value;
+	std::string type;
+};
