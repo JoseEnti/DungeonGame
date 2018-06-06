@@ -29,7 +29,7 @@ public:
 	bool ShowCharacterInventory(int id_character);
 	bool ShowCharacterStats(int id_character, std::string mail);
 	void SelectMap(int mapNumber);
-
+	void SaveMapDb(std::string query, std::string mapName);
 private:
 	bool Connect(char* host, char* user, char* pass);
 

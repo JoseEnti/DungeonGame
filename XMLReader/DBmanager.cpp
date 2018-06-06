@@ -5,6 +5,14 @@ DBmanager::DBmanager()
 {
 }
 
+void DBmanager::SaveMapDb(std::string query, std::string mapName) {
+	
+	prep_stmt = con->prepareStatement("INSERT INTO maps(`MapName`, `MapContent`) VALUES(?, ?)");
+	prep_stmt->setString(1, mapName);
+	prep_stmt->setString(2, query);
+	prep_stmt->execute();
+	delete (prep_stmt);
+}
 bool DBmanager::Connect(char* host, char* user, char* pass) {
 	bool connectionSuccefull = false;
 	for (int actualApptemps = 1;
@@ -371,7 +379,7 @@ void DBmanager::SelectMap(int mapNumber)
 	std::string query = "SELECT * FROM Maps WHERE MapId='"+playerInput+"'";
 	result = stmt->executeQuery(query.c_str());
 	if (result->next()) {
-		std::string xml = result->getString("MapContent");
+		std::string xml = result->getString("MapContent").c_str();
 
 	}
 	

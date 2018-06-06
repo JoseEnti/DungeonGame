@@ -433,9 +433,7 @@ void WorldDungeonFixed::saveGame() {
 	DBmanager db;
 	
 	std::string query = "<room squareAmountX='";
-	sql::PreparedStatement *prep_stmt;
-	prep_stmt = con->prepareStatement("INSERT INTO maps(`MapName`, `MapContent`) VALUES(?, ?)");
-	prep_stmt->setString(1, mapName);
+	
 
 	pugi::xml_document doc;
 	pugi::xml_node nodeRoom = doc.append_child("room");
@@ -506,10 +504,9 @@ void WorldDungeonFixed::saveGame() {
 			treasuresCount++;
 		}
 		query += "</room>";
+		db.SaveMapDb(query, mapName);
 	}
-	prep_stmt->setString(2, query);
-	prep_stmt->execute();
-	delete (prep_stmt);
+	
 }
 
 WorldDungeonFixed::~WorldDungeonFixed()

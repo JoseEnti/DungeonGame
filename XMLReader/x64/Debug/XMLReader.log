@@ -1,13 +1,4 @@
-﻿  WorldDungeonFixed.cpp
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(365): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(372): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(377): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(381): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(390): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(398): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(402): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(410): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  DBmanager.cpp
+﻿  DBmanager.cpp
 c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\cppconn\sqlstring.h(39): warning C4251: 'sql::SQLString::realStr': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'sql::SQLString'
   c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\xstring(4079): note: see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
 c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\cppconn\exception.h(61): warning C4251: 'sql::SQLException::sql_state': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'sql::SQLException'
@@ -21,7 +12,6 @@ c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\mysql_conne
   c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\mysql_connection.h(179): note: see declaration of 'boost::scoped_ptr<sql::mysql::MySQL_Statement>'
 c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\mysql_connection.h(181): warning C4251: 'sql::mysql::MySQL_Connection::intern': class 'boost::scoped_ptr<sql::mysql::MySQL_ConnectionData>' needs to have dll-interface to be used by clients of class 'sql::mysql::MySQL_Connection'
   c:\users\marc.romera\desktop\dungeongame-master\deps64\mysql\include\mysql_connection.h(181): note: see declaration of 'boost::scoped_ptr<sql::mysql::MySQL_ConnectionData>'
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\dbmanager.cpp(295): warning C4101: 'e': unreferenced local variable
-  Generating Code...
+c:\users\marc.romera\desktop\dungeongame-master\xmlreader\dbmanager.cpp(303): warning C4101: 'e': unreferenced local variable
   XMLReader.vcxproj -> C:\Users\marc.romera\Desktop\DungeonGame-master\x64\Debug\XMLReader.exe
   XMLReader.vcxproj -> C:\Users\marc.romera\Desktop\DungeonGame-master\x64\Debug\XMLReader.pdb (Partial PDB)
