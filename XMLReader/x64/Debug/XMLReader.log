@@ -1,12 +1,12 @@
 ﻿  WorldDungeonFixed.cpp
   Unknown compiler version - please run the configure tests and report the results
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(387): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(394): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(399): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(403): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(412): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(420): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(428): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marc.romera\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(435): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  XMLReader.vcxproj -> C:\Users\marc.romera\Desktop\DungeonGame-master\x64\Debug\XMLReader.exe
-  XMLReader.vcxproj -> C:\Users\marc.romera\Desktop\DungeonGame-master\x64\Debug\XMLReader.pdb (Partial PDB)
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(392): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(399): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(404): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(408): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(417): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(425): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(433): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jose.ojalvo\desktop\dungeongame-master\xmlreader\worlddungeonfixed.cpp(440): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  XMLReader.vcxproj -> C:\Users\jose.ojalvo\Desktop\DungeonGame-master\x64\Debug\XMLReader.exe
+  XMLReader.vcxproj -> C:\Users\jose.ojalvo\Desktop\DungeonGame-master\x64\Debug\XMLReader.pdb (Partial PDB)

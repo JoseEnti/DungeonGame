@@ -12,10 +12,10 @@ bool raceCreated = false;
 bool connectionSuccefull = false;
 bool playableCharacterChoosen = false;
 
-void game(int characterChoosen);
+void game(int characterChoosen, int habitacion);
 void NotLoggedMenu(bool& exit);
 void LoggedMenu(bool &exit);
-void ChooseCharacter();
+void ChooseCharacter(int habitacion);
 void CreateNewCharacter();
 
 DBmanager database;
@@ -83,7 +83,10 @@ void LoggedMenu(bool &exit) {
 
 	switch (optionChoosen) {
 	case 1:
-		ChooseCharacter();
+		std::cout << "Elije la habitacion en la que quieres jugar" << std::endl;
+		int habitacion;
+		std::cin >> habitacion;
+		ChooseCharacter(habitacion);
 		break;
 	case 2:
 		CreateNewCharacter();
@@ -98,7 +101,7 @@ void LoggedMenu(bool &exit) {
 	}
 }
 
-void ChooseCharacter() {
+void ChooseCharacter(int habitacion) {
 	int racesFound = database.ShowUserCharacters(user);
 
 	std::cout << "Elije el id del personaje que quieres seleccionar" << std::endl;
@@ -119,7 +122,7 @@ void ChooseCharacter() {
 	xmlFile.close();
 	if (playableCharacterChoosen) {
 		std::cout << "Iniciando el juego..." << std::endl;
-		game(optionChoosen);
+		game(optionChoosen, habitacion);
 	}
 }
 
@@ -149,11 +152,11 @@ void CreateNewCharacter() {
 }
 
 
-void game(int characterChoosen) {
+void game(int characterChoosen, int habitacion) {
 
 	WorldDungeonFixed world;
-	world.LoadMap("RetoDungeon.xml");
-	sf::RenderWindow window(sf::VideoMode(world.GetWorldX() * 32, world.GetWorldY() * 32), "BloodBorne 2");
+	world.LoadMap("dungeon.xml", habitacion);
+	sf::RenderWindow window(sf::VideoMode(world.GetWorldX(habitacion) * 32, world.GetWorldY(habitacion) * 32), "BloodBorne 2");
 
 	int treasureValue = 0;
 
@@ -171,32 +174,29 @@ void game(int characterChoosen) {
 				window.close();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-				actualPlayerY = world.GetPlayerY();
-				world.SetPlayerY(actualPlayerY -= 1);
+				actualPlayerY = world.GetPlayerY(habitacion);
+				world.SetPlayerY(actualPlayerY -= 1, habitacion);
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-				actualPlayerY = world.GetPlayerY();
-				world.SetPlayerY(actualPlayerY += 1);
+				actualPlayerY = world.GetPlayerY(habitacion);
+				world.SetPlayerY(actualPlayerY += 1, habitacion);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-				actualPlayerX = world.GetPlayerX();
-				world.SetPlayerX(actualPlayerX -= 1);
+				actualPlayerX = world.GetPlayerX(habitacion);
+				world.SetPlayerX(actualPlayerX -= 1, habitacion);
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-				actualPlayerX = world.GetPlayerX();
-				world.SetPlayerX(actualPlayerX += 1);
+				actualPlayerX = world.GetPlayerX(habitacion);
+				world.SetPlayerX(actualPlayerX += 1, habitacion);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
 				std::cout << "Tesoro encontrado!" << std::endl;
-				treasureValue = world.PickUpTreasure();
+				treasureValue = world.PickUpTreasure(habitacion);
 				if (treasureValue > 0) {
 					database.InsertCoin(characterChoosen, treasureValue);
 				}
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-				database.SelectMap(characterChoosen);
 
-			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
 				database.ShowCharacterInventory(characterChoosen);
 			}
@@ -205,10 +205,10 @@ void game(int characterChoosen) {
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 				std::cout << "Guardando partida..." << std::endl;
-				world.saveGame();
+				world.saveGame(habitacion);
 			}
 		}
-		world.DrawMap(window);
+		world.DrawMap(window, habitacion);
 
 		window.display();
 	}

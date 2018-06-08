@@ -4,50 +4,12 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\Window.hpp>
 
-class WorldDungeonFixed
+struct Habitacion
 {
-public:
-	WorldDungeonFixed();
-	void LoadMap(std::string xml);
-	~WorldDungeonFixed();
-
-	void DrawMap(sf::RenderWindow &window);
-
-	int GetWorldX();
-	int GetWorldY();
-
-	std::string GetObstacleType(int obstacleID);
-	int GetObstacleX(int obstacleID);
-	int GetObstacleY(int obstacleID);
-
-	bool GetTreasurePickedUp(int treasureID);
-	int GetTreasureValue(int treasureID);
-	int GetTreasureX(int treasureID);
-	int GetTreasureY(int treasureID);
-
-	void SetTreasurePickedUp(int treasureID, bool pickedUp);
-
-	int GetEnemyX(int enemyID);
-	int GetEnemyY(int enemyID);
-
-	int GetPlayerX();
-	int GetPlayerY();
-
-	int GetDoorX(int doorID);
-	int GetDoorY(int doorID);
-
-
-	void SetPlayerX(int new_positionX);
-	void SetPlayerY(int new_positionY);
-
-	int PickUpTreasure();
-
-	void saveGame();
-
-private:
 	int sizeX;
 	int sizeY;
 
+	int habitacion;
 	int numberOfSquares;
 	int numberOfObstacles;
 	int numberOfTreasures;
@@ -62,8 +24,53 @@ private:
 	Item *allItems;
 	Treasure *allTreasures;
 	Door *allDoors;
+};
 
-	void playerHasCrashedWithEnemy();
-	void playerInDoor();
+class WorldDungeonFixed
+{
+public:
+	WorldDungeonFixed();
+	void LoadMap(std::string xml, int habitacion);
+	~WorldDungeonFixed();
+
+	void DrawMap(sf::RenderWindow &window, int habitacion);
+
+	int GetWorldX(int habitacion);
+	int GetWorldY(int habitacion);
+
+	std::string GetObstacleType(int obstacleID, int habitacion);
+	int GetObstacleX(int obstacleID, int habitacion);
+	int GetObstacleY(int obstacleID, int habitacion);
+
+	bool GetTreasurePickedUp(int treasureID, int habitacion);
+	int GetTreasureValue(int treasureID, int habitacion);
+	int GetTreasureX(int treasureID, int habitacion);
+	int GetTreasureY(int treasureID, int habitacion);
+
+	void SetTreasurePickedUp(int treasureID, bool pickedUp, int habitacion);
+
+	int GetEnemyX(int enemyID, int habitacion);
+	int GetEnemyY(int enemyID, int habitacion);
+
+	int GetPlayerX(int habitacion);
+	int GetPlayerY(int habitacion);
+
+	int GetDoorX(int doorID, int habitacion);
+	int GetDoorY(int doorID, int habitacion);
+
+
+	void SetPlayerX(int new_positionX, int habitacion);
+	void SetPlayerY(int new_positionY, int habitacion);
+
+	int PickUpTreasure(int habitacion);
+
+	void saveGame(int habitacion);
+
+private:
+
+	std::map<int, Habitacion> mapa;
+	int maxHabitaciones;
+	void playerHasCrashedWithEnemy(int habitacion);
+	void playerInDoor(int habitacion);
 };
 
