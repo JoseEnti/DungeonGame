@@ -1,17 +1,15 @@
 #include "DBmanager.h"
 
-
 DBmanager::DBmanager()
 {
 }
 
-void DBmanager::SaveMapDb(std::string query, std::string mapNumber) {
+void DBmanager::SaveMapDb(std::string query, std::string MapName) {
 	
 
-	prep_stmt = con->prepareStatement("INSERT INTO maps(`MapContent`) VALUE(?) WHERE MapId = ?");
-
-	prep_stmt->setString(1, query);
-	prep_stmt->setString(2, mapNumber);
+	prep_stmt = con->prepareStatement("INSERT INTO maps(MapName, MapContent) VALUE(?,?)");
+	prep_stmt->setString(1, MapName);
+	prep_stmt->setString(2, query);
 	prep_stmt->execute();
 	delete (prep_stmt);
 }

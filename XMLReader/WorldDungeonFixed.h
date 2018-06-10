@@ -1,15 +1,15 @@
 #pragma once
 #include "Globals.h"
-
 #include <SFML\Graphics.hpp>
 #include <SFML\Window.hpp>
+#include <vector>
 
 struct Habitacion
 {
 	int sizeX;
 	int sizeY;
 
-	int habitacion;
+	int id;
 	int numberOfSquares;
 	int numberOfObstacles;
 	int numberOfTreasures;
@@ -68,7 +68,7 @@ public:
 
 private:
 
-	std::map<int, Habitacion> mapa;
+	std::map<int, std::vector <Habitacion>> mapa;
 	int maxHabitaciones;
 	void playerHasCrashedWithEnemy(int habitacion);
 	void playerInDoor(int habitacion);

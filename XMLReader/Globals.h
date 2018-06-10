@@ -36,5 +36,6 @@ struct Treasure {
 struct Door {
 	Square position;
 	int value;
+	int teleportTo;
 	std::string type;
 };

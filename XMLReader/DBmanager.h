@@ -9,9 +9,9 @@
 #include <cppconn\prepared_statement.h>
 #include <cppconn\resultset.h>
 
-#define HOST "192.168.122.2:3306"
+#define HOST "127.0.0.1:3306"
 #define USER "root"
-#define PASSWORD "enti" // Poner una contraseña aqui es de ****
+#define PASSWORD ""
 
 class DBmanager
 {
@@ -29,7 +29,7 @@ public:
 	bool ShowCharacterInventory(int id_character);
 	bool ShowCharacterStats(int id_character, std::string mail);
 	std::string SelectMap(int mapNumber);
-	void SaveMapDb(std::string query, std::string mapNumber);
+	void SaveMapDb(std::string query, std::string mapName);
 private:
 	bool Connect(char* host, char* user, char* pass);
 
