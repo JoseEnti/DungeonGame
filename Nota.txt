@@ -1,0 +1,3 @@
+El programa tiene un fallo, para cargar el mapa he usado un mapa que contiene un vector, con ese vector he usado memória dinámica para poder usar los
+a las clases del mapa, la cosa es que da una excepción y no lo he sabido solucionar, he probado distintos métodos pero ninguno ha funcionado.
+Un saludo
