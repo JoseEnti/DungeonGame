@@ -9,9 +9,9 @@
 #include <cppconn\prepared_statement.h>
 #include <cppconn\resultset.h>
 
-#define HOST "127.0.0.1:3306"
+#define HOST "192.168.122.2:3306"
 #define USER "root"
-#define PASSWORD ""
+#define PASSWORD "enti"
 
 class DBmanager
 {

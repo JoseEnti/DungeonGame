@@ -1,6 +1,24 @@
-<?xml version="1.0"?>
 <map>
-  <room squareAmountX="15" squareAmountY="20" id="1"><square type="player" x="2" y="17" /><square type="wall" x="0" y="0" /><square type="wall" x="1" y="0" /><square type="wall" x="2" y="0" /><square type="wall" x="3" y="0" /><square type="wall" x="10" y="0" /><square type="wall" x="3" y="1" /><square type="wall" x="10" y="1" /><square type="wall" x="3" y="2" /><square type="wall" x="10" y="2" /><square type="wall" x="3" y="3" /><square type="wall" x="3" y="4" /><square type="wall" x="3" y="5" /><square type="wall" x="10" y="5" /><square type="wall" x="11" y="5" /><square type="wall" x="12" y="5" /><square type="wall" x="13" y="5" /><square type="wall" x="14" y="5" /><square type="wall" x="3" y="6" />
+  <room squareAmountX="15" squareAmountY="20" id="1">
+	  <square type="player" x="2" y="17" />
+	  <square type="wall" x="0" y="0" />
+	  <square type="wall" x="1" y="0" />
+	  <square type="wall" x="2" y="0" />
+	  <square type="wall" x="3" y="0" />
+	  <square type="wall" x="10" y="0" />
+	  <square type="wall" x="3" y="1" />
+	  <square type="wall" x="10" y="1" />
+	  <square type="wall" x="3" y="2" />
+	  <square type="wall" x="10" y="2" />
+	  <square type="wall" x="3" y="3" />
+	  <square type="wall" x="3" y="4" />
+	  <square type="wall" x="3" y="5" />
+	  <square type="wall" x="10" y="5" />
+	  <square type="wall" x="11" y="5" />
+	  <square type="wall" x="12" y="5" />
+	  <square type="wall" x="13" y="5" />
+	  <square type="wall" x="14" y="5" />
+	  <square type="wall" x="3" y="6" />
 	  <square type="wall" x="3" y="7" />
 	  <square type="wall" x="3" y="8" />
 	  <square type="wall" x="3" y="9" />
@@ -21,8 +39,8 @@
 	  <square type="wall" x="10" y="17" />
 	  <square type="wall" x="8" y="18" />
 	  <square type="wall" x="9" y="18" />
-	  <square type="wall" x="10" y="18" />
-    <square type="door" x="7" y="19" />
+	  <square type="door" x="10" y="18" teleportTo="2" />
+	  <square type="door" x="7" y="19" teleportTo="3" />
 	  <square type="enemy" x="12" y="1" />
 	  <square type="enemy" x="1" y="2" />
 	  <square type="enemy" x="13" y="2" />
@@ -51,8 +69,8 @@
 	  <square type="wall" x="1" y="2" />
 	  <square type="wall" x="3" y="8" />
 	  <square type="wall" x="1" y="8" />
-	  <square type="door" x="3" y="0" />
-    <square type="door" x="6" y="8" />
+	  <square type="door" x="3" y="0" teleportTo="1"/>
+      <square type="door" x="6" y="8" teleportTo="3"/>
 	  <square type="enemy" x="5" y="1" />
 	  <square type="enemy" x="5" y="2" />
 	  <square type="enemy" x="5" y="3" />
@@ -67,8 +85,8 @@
 	  <square type="wall" x="2" y="4" />
 	  <square type="wall" x="3" y="3" />
 	  <square type="wall" x="4" y="2" />
-	  <square type="door" x="5" y="0" />
-	  <square type="enemy" x="4" y="0" />
+	  <square type="door" x="5" y="0" teleportTo="1"/>
+	  <square type="door" x="4" y="0" teleportTo="2"/>
 	  <square type="enemy" x="3" y="1" />
 	  <square type="enemy" x="2" y="2" />
 	  <square type="gold" x="1" y="3" />

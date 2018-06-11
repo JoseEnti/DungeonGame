@@ -65,10 +65,10 @@ public:
 	int PickUpTreasure(int habitacion);
 
 	void saveGame(int habitacion);
-
+	
 private:
-
-	std::map<int, std::vector <Habitacion>> mapa;
+	Habitacion *h;
+	std::map<int, Habitacion> mapa;
 	int maxHabitaciones;
 	void playerHasCrashedWithEnemy(int habitacion);
 	void playerInDoor(int habitacion);
